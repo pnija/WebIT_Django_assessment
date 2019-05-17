@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+</head>
+
+{% block content %}
+    <h2>Client Edit Form</h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+        <p>
+            <label id="id_client_list">Select Client:</label>
+            <select onchange="get_client_details(this)" id="select_id" name="select_id">
+                <option value="0">--Select--</option>
+                {% for client in client_list %}
+                <option value="{{ client.id }}">{{ client.client_contact_name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Update</button>
+    </form>
+{% endblock %}
+
+<script>
+    function get_client_details(selected_item) {
+        var client_id = (selected_item.value || selected_item.options[selected_item.selectedIndex].value);
+
+        $.ajax({
+            url: "{% url 'get_edit_details' %}",
+            method: 'GET',
+            data: {
+                'client_id': client_id
+            },
+            dataType: 'json',
+            success: function(data) {
+                for(var key in data) {
+                    $("input[name='" + key + "']").val(data[key]);
+                }
+            }
+        });
+
+    }
+</script>

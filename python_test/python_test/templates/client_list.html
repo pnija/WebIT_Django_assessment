@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/client-search.css' %}">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css'>
+
+    <!--search related cdn-->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <script src='https://code.jquery.com/jquery-1.10.2.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js'></script>
+</body>
+
+<!--<div class="container">-->
+<!--<form id="search" method="POST" action="{% url 'search_clients' %}">-->
+ <!--{% csrf_token %}-->
+ <!--<input type="text" class="form-control" id="txtSearch" name="txtSearch">-->
+ <!--<button type="submit" class="btn btn-default btn-submit">Submit</button>-->
+<!--</form>-->
+<!--</div>-->
+
+  	<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+            <div class="input-group" id="adv-search">
+                <input type="text" id="txtSearch" name="txtSearch" class="form-control" placeholder="Search for clients" />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <form class="form-horizontal" role="form">
+                                  <div class="form-group">
+                                    <label for="filter">Filter by</label>
+                                    <select id="filter-options" onchange="get_selected_option(this)" class="form-control">
+                                        <option value="ClientName" selected>Client Name</option>
+                                        <option value="Email">Email</option>
+                                        <option value="Phone">Phone</option>
+                                        <option value="Suburb">Suburb</option>
+                                    </select>
+                                  </div>
+                                </form>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+	</div>
+</div>
+
+<div class="container">
+  <h1 class="page-header">Client</h1>
+  <table class="table" id="client-table" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Full Name</th>
+        <th>Street Name</th>
+        <th>Suburb</th>
+        <th>Postcode</th>
+        <th>State</th>
+        <th>Client Contact Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+      </tr>
+    </thead>
+    <tbody id="record">
+      {% for client in complete_client_list %}
+        <tr id="row{{ client.id }}">
+          <td>{{ client.id }}</td>
+          <td>{{ client.client_name }}</td>
+          <td>{{ client.street_name }}</td>
+          <td>{{ client.suburb }}</td>
+          <td>{{ client.postcode }}</td>
+          <td>{{ client.state }}</td>
+          <td>{{ client.client_contact_name }}</td>
+          <td>{{ client.email }}</td>
+          <td>{{ client.phone_number }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="9" class="text-center bg-warning">No Client</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+</div>
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script>
+
+var search_text = document.getElementById('txtSearch');
+search_text.onkeyup = function() {
+    var selected_item = document.getElementById('filter-options').value;
+    var search_text_value = search_text.value;
+    $.ajax({
+      url: "{% url 'search_clients' %}",
+      method: 'GET',
+      data: {
+          'selected_item': selected_item,
+          'search_text_value': search_text_value
+      },
+      dataType: 'json',
+      success: function(data) {
+            var data_string = '';
+            $('#record').empty();
+            data.forEach(function(item) {
+                data_string += '<tr><td>' + item.id + '</td><td>'+ item.client_name+'</td>'+
+                                '<td>'+item.street_name +'</td><td>'+ item.suburb +'</td>' +
+                                '<td>' + item.postcode + '</td><td>'+ item.state+'</td>'+
+                                '<td>' + item.client_contact_name + '</td><td>'+ item.email+'</td>'+
+                                '<td>' + item.phone_number + '</td></tr>';
+                // var value = item.client_name.toLowerCase();
+                // $("#record tr").filter(function() {
+                //     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                // });
+
+            });
+            $(data_string).appendTo('#record');
+      }
+  });
+
+};
+
+</script>

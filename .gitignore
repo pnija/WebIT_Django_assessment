@@ -1,0 +1,4 @@
+ignore local enviroment
+
+python_test/env/
+python_test/newenv/
