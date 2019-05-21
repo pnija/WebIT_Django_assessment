@@ -1,4 +1,8 @@
-ignore local enviroment
+#ignore local environment
 
 python_test/env/
 python_test/newenv/
+
+#ignore all pyc files
+
+*.pyc
