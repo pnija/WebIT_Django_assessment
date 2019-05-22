@@ -1,17 +1,18 @@
 <!DOCTYPE html>
+{% load static %}
 <head>
+    <link rel="stylesheet" href="{% static 'css/client-edit.css' %}">
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 </head>
 
 <div class="row">
+    {% if messages %}
     <div class="row">
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <p>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-            {% endfor %}
-        </ul>
-    </div>
+        <div class="col-xs-12">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+        </div>
 </div>
 {% endif %}
 
