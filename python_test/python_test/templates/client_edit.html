@@ -3,6 +3,18 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 </head>
 
+<div class="row">
+    <div class="row">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <p>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
 {% block content %}
     <h2>Client Edit Form</h2>
     <form method="POST" class="post-form">{% csrf_token %}
