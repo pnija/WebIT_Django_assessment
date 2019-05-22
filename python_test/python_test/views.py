@@ -1,4 +1,3 @@
-from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
@@ -79,17 +78,3 @@ class SearchClients(View):
         else:
             search_objs = Client.objects.filter(suburb__icontains=search_text_value).values()
         return JsonResponse(list(search_objs), safe=False)
-
-
-class SortClients(View):
-    """ sort the various fields of the client table alphabetically / numerically """
-    model = Client
-
-    def get(self, *args, **kwargs):
-        ascending_item = self.request.GET.get('selected_item', None)
-        descending_item = "-" + ascending_item
-
-        sorted_obj_asc = Client.objects.order_by(ascending_item).values()
-        sorted_obj_des = Client.objects.order_by(descending_item).values()
-
-        return JsonResponse(list(sorted_obj_asc), safe=False)

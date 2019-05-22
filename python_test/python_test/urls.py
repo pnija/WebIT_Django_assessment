@@ -18,13 +18,12 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.urls import path
 
-from .views import SearchClients, SortClients, ClientDetails, AddClientDetails, EditClientDetails, GetEditClientDetails
+from .views import SearchClients, ClientDetails, AddClientDetails, EditClientDetails, GetEditClientDetails
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', TemplateView.as_view(template_name="home.html")),
     path('search', SearchClients.as_view(), name='search_clients'),
-    path('sort', SortClients.as_view(), name='sort_clients'),
     path('client', ClientDetails.as_view(), name='client_details'),
     path('client/add', AddClientDetails.as_view(), name='add_client'),
     path('client/edit', EditClientDetails.as_view(), name='edit_client'),
