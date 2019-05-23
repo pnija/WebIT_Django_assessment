@@ -26,6 +26,6 @@ urlpatterns = [
     path('search', SearchClients.as_view(), name='search_clients'),
     path('client', ClientDetails.as_view(), name='client_details'),
     path('client/add', AddClientDetails.as_view(), name='add_client'),
-    path('client/edit', EditClientDetails.as_view(), name='edit_client'),
+    path('client/edit/$', EditClientDetails.as_view(), name='edit_client'),
     path('client/get_edit_details', GetEditClientDetails.as_view(), name="get_edit_details"),
 ]

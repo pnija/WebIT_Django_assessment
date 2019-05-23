@@ -1,8 +1,34 @@
 <!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css'>
+        <link rel='stylesheet' href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css'>
+        <link rel='stylesheet' href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css'>
+    </head>
+
+<div class="container">
+    <br>
+        <div class="row">
+            {% if messages %}
+            <div class="row">
+                <div style="text-align: center;" class="col-sm-6 col-sm-offset-3">
+                        {% for message in messages %}
+                            <p{% if message.tags == "success" %} class="alert alert-success"{% endif %}>{{ message }}</p>
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
+{% endif %}
+
 {% block content %}
-    <h2>Client Add Form</h2>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+
+
+        <h2>Client Add Form</h2>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+    </div>
 {% endblock %}

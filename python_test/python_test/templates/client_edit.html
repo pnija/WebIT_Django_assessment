@@ -2,18 +2,23 @@
 {% load static %}
 <head>
     <link rel="stylesheet" href="{% static 'css/client-edit.css' %}">
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-
-<div class="row">
-    {% if messages %}
+<div class="container">
+    <br>
     <div class="row">
-        <div class="col-xs-12">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
+        {% if messages %}
+        <div class="row">
+            <div style="text-align: center;" class="col-sm-6 col-sm-offset-3">
+                    {% for message in messages %}
+                        <p{% if message.tags == "success" %} class="alert alert-success"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+            </div>
         </div>
-</div>
+    </div>
 {% endif %}
 
 {% block content %}
@@ -32,7 +37,7 @@
         <button type="submit" class="save btn btn-default">Update</button>
     </form>
 {% endblock %}
-
+</div>
 <script>
     function get_client_details(selected_item) {
         var client_id = (selected_item.value || selected_item.options[selected_item.selectedIndex].value);

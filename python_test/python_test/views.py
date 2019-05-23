@@ -25,6 +25,14 @@ class AddClientDetails(CreateView):
     template_name = 'client_add.html'
     success_url = reverse_lazy('add_client')
 
+    def post(self, request, *args, **kwargs):
+        form = ClientAddForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Client Details Added Successfully')
+            return redirect('add_client')
+        return render(request, 'client_list.html', {'form': form})
+
 
 class EditClientDetails(AddClientDetails):
     """ view to edit client details via a form using
@@ -45,7 +53,7 @@ class EditClientDetails(AddClientDetails):
             form.save()
             messages.success(request, 'Client Details Updated Successfully')
             return redirect('edit_client')
-        return render(request, 'edit_client.html', {'form': form})
+        return render(request, 'client_edit.html', {'form': form})
 
 
 class GetEditClientDetails(View):

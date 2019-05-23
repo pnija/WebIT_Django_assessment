@@ -2,6 +2,8 @@
 
 python_test/env/
 python_test/newenv/
+staticfiles/admin/
+staticfiles/css/
 
 #ignore all pyc files
 
