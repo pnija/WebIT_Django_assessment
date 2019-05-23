@@ -3,7 +3,6 @@ from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import View, ListView, CreateView, UpdateView
-from django.db import transaction
 
 from .models import Client
 from .forms import ClientAddForm
