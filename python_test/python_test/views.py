@@ -2,7 +2,8 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import View, ListView, CreateView
+from django.views.generic import View, ListView, CreateView, UpdateView
+from django.db import transaction
 
 from .models import Client
 from .forms import ClientAddForm
@@ -11,6 +12,7 @@ from .forms import ClientAddForm
 class ClientDetails(ListView):
     """ view to list client details using get_context_data
     method to get the complete client list and display them"""
+
     model = Client
     template_name = 'client_list.html'
     context_object_name = "complete_client_list"
@@ -84,3 +86,13 @@ class SearchClients(View):
         else:
             search_objs = Client.objects.filter(suburb__icontains=search_text_value).values()
         return JsonResponse(list(search_objs), safe=False)
+
+
+class ClientDetailsEdit(UpdateView):
+    """ edit client details from the details page """
+    template_name = 'client_edit.html'
+    success_url = reverse_lazy('edit_client')
+    form_class = ClientAddForm
+
+
+
