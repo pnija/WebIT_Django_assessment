@@ -23,10 +23,10 @@
 
 {% block content %}
     <h2>Client Edit Form</h2>
-    <form method="POST" class="post-form" novalidate>{% csrf_token %}
+    <form method="POST" class="post-form" onsubmit="return validate();" novalidate>{% csrf_token %}
         <p>
             <label id="id_client_list">Select Client:</label>
-            <select onchange="get_client_details(this)" id="select_id" name="select_id">
+            <select onchange="get_client_details(this)" id="select_id" name="select_id" class="client_name">
                 <option value="0">--Select--</option>
                 {% for client in client_list %}
                 <option value="{{ client.id }}">{{ client.client_contact_name }}</option>
@@ -34,48 +34,38 @@
             </select>
         </p>
          <table>
-
           <tr>
             <td><b>Full name:</b></td>
             <td>{{ form.client_name }}</td>
           </tr>
-
           <tr>
             <td><b>Street Name:</b></td>
             <td>{{ form.street_name }}</td>
           </tr>
-
           <tr>
             <td><b>Suburb:</b></td>
             <td>{{ form.suburb }}</td>
           </tr>
-
           <tr>
             <td><b>Postcode:</b></td>
             <td>{{ form.postcode }}</td>
           </tr>
-
           <tr>
             <td><b>State:</b></td>
             <td>{{ form.state }}</td>
           </tr>
-
-
           <tr>
             <td><b>Client contact name:</b></td>
             <td>{{ form.client_contact_name }}</td>
           </tr>
-
           <tr>
             <td><b>Email:</b></td>
             <td>{{ form.email }}</td>
           </tr>
-
           <tr>
             <td><b>Phone Number:</b></td>
             <td>{{ form.phone_number }}</td>
           </tr>
-
         </table>
         <button type="submit" class="save btn btn-default">Update</button>
     </form>
@@ -100,12 +90,6 @@
         });
 
     }
-
-    // function loadClientContactName(){
-    //     var pageURL = $(location).attr("href");
-    //     client_id=res[1];
-    //     $("#select_id").val(client_id);
-    // }
 
     $( document ).ready(function() {
         var pageURL = $(location).attr("href");
@@ -136,6 +120,14 @@
         }
 
     });
+
+    function validate(){
+        selcted_item_value = $("#select_id").val();
+
+        if (selcted_item_value == "0"){
+            return false;
+        }
+    }
 
 </script>
 
