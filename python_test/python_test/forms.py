@@ -7,9 +7,8 @@ class ClientAddForm(forms.ModelForm):
     suburb = forms.CharField(required=False)
     postcode = forms.CharField(required=False)
     state = forms.CharField(required=False)
-    client_contact_name = forms.CharField(required=False)
-    email = forms.CharField(required=True)
-
+    client_contact_name = forms.CharField(required=True)
+    
     class Meta:
         model = Client
         fields = ('client_name', 'street_name', 'suburb', 'postcode', 'state', 'client_contact_name', 'email',
