@@ -8,6 +8,7 @@ class ClientAddForm(forms.ModelForm):
     postcode = forms.CharField(required=False)
     state = forms.CharField(required=False)
     client_contact_name = forms.CharField(required=False)
+    email = forms.CharField(required=True)
 
     class Meta:
         model = Client

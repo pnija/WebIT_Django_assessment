@@ -118,6 +118,11 @@
                                     '<td>' + item.phone_number + '</td></tr>';
                 });
                 $(data_string).appendTo('#record');
+
+                if(data_string.length === 0){
+                    data_string = '<td colspan="9" class="text-center bg-warning">No Results</td>'
+                    $(data_string).appendTo('#record');
+                }
           }
       });
 

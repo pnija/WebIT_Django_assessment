@@ -23,7 +23,7 @@
 
 {% block content %}
     <h2>Client Edit Form</h2>
-    <form method="POST" class="post-form">{% csrf_token %}
+    <form method="POST" class="post-form" novalidate>{% csrf_token %}
         <p>
             <label id="id_client_list">Select Client:</label>
             <select onchange="get_client_details(this)" id="select_id" name="select_id">
@@ -58,13 +58,18 @@
 
     }
 
+    // function loadClientContactName(){
+    //     var pageURL = $(location).attr("href");
+    //     client_id=res[1];
+    //     $("#select_id").val(client_id);
+    // }
+
     $( document ).ready(function() {
         var pageURL = $(location).attr("href");
 
 
         if (pageURL.indexOf('?') > -1)
         {
-            debugger;
             var res = pageURL.split("=");
             client_id=res[1];
 

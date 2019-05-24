@@ -50,11 +50,12 @@ class EditClientDetails(AddClientDetails):
     def post(self, request, *args, **kwargs):
         instance = get_object_or_404(Client, id=request.POST.get('select_id'))
         form = ClientAddForm(request.POST or None, instance=instance)
+        client_list = Client.objects.all().values('id', 'client_contact_name')
         if form.is_valid():
             form.save()
             messages.success(request, 'Client Details Updated Successfully')
             return redirect('edit_client')
-        return render(request, 'client_edit.html', {'form': form})
+        return render(request, 'client_edit.html', {'form': form, 'client_list':client_list})
 
 
 class GetEditClientDetails(View):
