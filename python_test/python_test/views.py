@@ -32,7 +32,7 @@ class AddClientDetails(CreateView):
             form.save()
             messages.success(request, 'Client Details Added Successfully')
             return redirect('add_client')
-        return render(request, 'client_list.html', {'form': form})
+        return render(request, 'client_add.html', {'form': form})
 
 
 class EditClientDetails(AddClientDetails):

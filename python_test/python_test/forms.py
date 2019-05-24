@@ -21,16 +21,4 @@ class ClientAddForm(forms.ModelForm):
         email = self.cleaned_data.get('email')
         phone_number = self.cleaned_data.get('phone_number')
 
-        if len(client_name) is None:
-            self._errors['client_name'] = self.error_class([
-                'client name cannot be empty'])
-
-        if len(email) is None:
-            self._errors['email'] = self.error_class([
-                'email cannot be empty'])
-
-        if len(phone_number) is None:
-            self._errors['phone_number'] = self.error_class([
-                'phone number cannot be empty'])
-
         return self.cleaned_data
