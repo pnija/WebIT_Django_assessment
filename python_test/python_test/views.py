@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import View, ListView, CreateView, UpdateView
+from django.views.generic import View, ListView, CreateView, UpdateView, TemplateView
 
 from .models import Client
 from .forms import ClientAddForm
@@ -95,4 +95,6 @@ class ClientDetailsEdit(UpdateView):
     form_class = ClientAddForm
 
 
+class ClientHome(TemplateView):
+    template_name = 'base.html'
 
